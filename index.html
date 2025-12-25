@@ -10,45 +10,64 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
-body{
-  height:100vh;
+html,body{
+  width:100%;
+  height:100%;
   overflow:hidden;
+}
+
+body{
   background:linear-gradient(180deg,#0b3d2e,#145a32);
-  display:flex;
-  justify-content:center;
-  align-items:center;
   font-family:'Playfair Display', serif;
   color:#fff;
 }
 
-/* ❄️ GLOBAL SNOW */
+/* ❄️ SNOW */
 .snow{
   position:fixed;
   top:-10px;
   animation:fall linear infinite;
-  z-index:3; /* ABOVE BACKGROUND */
+  z-index:3;
   pointer-events:none;
 }
-@keyframes fall{
-  to{transform:translateY(110vh);}
+@keyframes fall{to{transform:translateY(110vh);}}
+
+/* 🎵 MUSIC WAVE */
+.music-wave{
+  margin-top:20px;
+  display:none;
+  justify-content:center;
+  gap:6px;
+}
+.music-wave span{
+  width:5px;
+  height:18px;
+  background:#b11226;
+  border-radius:4px;
+  animation:wave 1.2s infinite ease-in-out;
+}
+.music-wave span:nth-child(n){
+  animation-delay:calc(var(--i)*.1s);
+}
+@keyframes wave{
+  0%,100%{height:18px;opacity:.4;}
+  50%{height:40px;opacity:1;}
 }
 
 /* PAGES */
 .page{
-  position:absolute;
-  width:100%;
-  height:100%;
+  position:fixed;
+  inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  transition:transform .8s ease;
-  z-index:2;
+  transition:transform .7s ease;
 }
 .left{transform:translateX(-100%);}
 .center{transform:translateX(0);}
 .right{transform:translateX(100%);}
 
-/* 🎁 PAGE 1 */
+/* PAGE 1 */
 .page1{text-align:center;font-family:'Dancing Script', cursive;}
 .page1 h1{font-size:40px;margin-bottom:30px;}
 
@@ -59,152 +78,102 @@ body{
   position:relative;
   cursor:pointer;
   animation:float 2s infinite;
-  box-shadow:0 0 25px rgba(255,255,255,.4);
 }
 .gift::before{
   content:"";position:absolute;left:50%;top:0;
-  width:18px;height:130px;background:#fff;
+  width:18px;height:100%;background:#fff;
   transform:translateX(-50%);
 }
 .gift::after{
   content:"";position:absolute;top:50%;left:0;
-  width:130px;height:18px;background:#fff;
+  width:100%;height:18px;background:#fff;
   transform:translateY(-50%);
 }
-.bow-left,.bow-right{
-  position:absolute;top:-20px;
-  width:34px;height:34px;
-  border:5px solid #c0392b;
-  border-radius:50%;
-}
-.bow-left{left:32px;}
-.bow-right{right:32px;}
-
 .tap{
-  position:absolute;
-  top:-35px;right:-40px;
-  background:#fff;
-  color:#c0392b;
-  padding:8px 14px;
-  border-radius:20px;
-  font-size:14px;
-  animation:bounce 1.5s infinite;
+  position:absolute;top:-35px;right:-40px;
+  background:#fff;color:#c0392b;
+  padding:8px 14px;border-radius:20px;
+  font-size:14px;animation:bounce 1.5s infinite;
 }
 
-/* 🎄 PAGE 2 */
+/* PAGE 2 */
 .card2{
-  width:340px;height:480px;
-  background:#fff;
-  color:#333;
+  width:90%;max-width:340px;
+  background:#fff;color:#333;
   border-radius:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.3);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
   padding:30px 20px;
+  text-align:center;
 }
 .snowman{font-size:90px;animation:float 2s infinite;}
 .text{
   font-family:'Great Vibes', cursive;
-  font-size:32px;
-  text-align:center;
-  margin:20px 0 10px;
+  font-size:32px;margin:20px 0;
 }
 .btn{
-  margin-top:auto;
   padding:14px 40px;
-  background:#c0392b;
-  color:#fff;
-  border:none;
-  border-radius:30px;
+  background:#c0392b;color:#fff;
+  border:none;border-radius:30px;
   cursor:pointer;
 }
 
-/* ❤️ PAGE 3 */
+/* PAGE 3 */
 .love-card{
-  background:#fff;
-  color:#333;
-  padding:30px;
-  border-radius:18px;
+  width:90%;max-width:360px;
+  background:#fff;color:#333;
+  padding:30px;border-radius:18px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.3);
 }
 .grid{
   display:grid;
-  grid-template-columns:repeat(3,100px);
-  gap:15px;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 .box{
-  width:100px;height:100px;
+  height:80px;
   background:#fdecea;
   border-radius:14px;
   display:flex;
   justify-content:center;
   align-items:center;
   cursor:pointer;
-  position:relative;
+  color:transparent;
+  font-weight:600;
 }
-.box span{opacity:0;font-weight:600;}
-.box.show span{opacity:1;}
 .box::after{content:"Tap";color:#c0392b;}
+.box.show{color:#c0392b;}
 .box.show::after{display:none;}
-.heart{font-size:28px;}
 
-/* 🎅 PAGE 4 (FINAL) */
+/* PAGE 4 FINAL */
 .final{
   background:linear-gradient(180deg,#7d0a0a,#b11226);
-  width:100%;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  position:relative;
 }
 .final .card{
-  background:#fff;
-  color:#333;
+  width:90%;max-width:420px;
+  background:#fff;color:#333;
   padding:40px 30px;
-  max-width:600px;
   border-radius:16px;
   text-align:center;
-  z-index:5; /* ABOVE SNOW */
-  animation:fadeIn 2s ease;
+  animation:fadeIn 1.5s ease;
 }
 .final h1{
   font-family:'Great Vibes', cursive;
-  font-size:52px;
-  color:#b11226;
+  font-size:48px;color:#b11226;
 }
-.final h2{
-  font-family:'Great Vibes', cursive;
-  font-size:32px;
-  margin-bottom:30px;
-}
-.fade{opacity:.75;font-size:14px;}
-.final .id{
-  position:absolute;
-  bottom:20px;
+.final h2{margin-bottom:20px;}
+.final p{line-height:1.6;}
+.id{
+  position:fixed;
+  bottom:15px;
   width:100%;
   text-align:center;
-  font-size:13px;
-  opacity:.7;
-  color:#fff;
-  z-index:5;
+  font-size:12px;
+  opacity:.6;
 }
 
 /* Animations */
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
-}
-@keyframes bounce{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-6px);}
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
-}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
 
@@ -215,13 +184,11 @@ body{
   <source src="assets/snowman.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ❄️ GLOBAL SNOW (VISIBLE ON ALL PAGES incl. LAST) -->
-<span class="snow" style="left:5%;animation-duration:12s;">❄️</span>
-<span class="snow" style="left:15%;animation-duration:9s;">❄️</span>
-<span class="snow" style="left:30%;animation-duration:11s;">❄️</span>
-<span class="snow" style="left:45%;animation-duration:10s;">❄️</span>
-<span class="snow" style="left:60%;animation-duration:13s;">❄️</span>
-<span class="snow" style="left:75%;animation-duration:9s;">❄️</span>
+<!-- ❄️ SNOW -->
+<span class="snow" style="left:10%;animation-duration:10s;">❄️</span>
+<span class="snow" style="left:30%;animation-duration:12s;">❄️</span>
+<span class="snow" style="left:50%;animation-duration:9s;">❄️</span>
+<span class="snow" style="left:70%;animation-duration:11s;">❄️</span>
 <span class="snow" style="left:90%;animation-duration:14s;">❄️</span>
 
 <!-- PAGE 1 -->
@@ -229,8 +196,6 @@ body{
   <div>
     <h1>For Someone Special 🎄</h1>
     <div class="gift" onclick="start()">
-      <div class="bow-left"></div>
-      <div class="bow-right"></div>
       <div class="tap">Tap me!</div>
     </div>
   </div>
@@ -249,14 +214,13 @@ body{
 <div class="page right" id="p3">
   <div class="love-card">
     <h2>Just for you ❤️</h2>
-    <p>I don’t need a gift, because…</p>
     <div class="grid">
-      <div class="box" onclick="toggle(this)"><span>You</span></div>
-      <div class="box" onclick="toggle(this)"><span>are</span></div>
-      <div class="box" onclick="toggle(this)"><span>my</span></div>
-      <div class="box" onclick="toggle(this)"><span>prettiest</span></div>
-      <div class="box" onclick="toggle(this)"><span>Gift</span></div>
-      <div class="box" onclick="finalReveal(this)"><span class="heart">❤️</span></div>
+      <div class="box" onclick="toggle(this)">You</div>
+      <div class="box" onclick="toggle(this)">are</div>
+      <div class="box" onclick="toggle(this)">my</div>
+      <div class="box" onclick="toggle(this)">prettiest</div>
+      <div class="box" onclick="toggle(this)">Gift</div>
+      <div class="box" onclick="finalReveal(this)">❤️</div>
     </div>
   </div>
 </div>
@@ -267,23 +231,35 @@ body{
     <h1>Merry Christmas</h1>
     <h2>to my Cutiepie</h2>
     <p>This Christmas, I just want you to know how special you are to me.</p>
-    <p class="fade">Thank you for being you.<br>Merry Christmas 💖</p>
+    <p>Thank you for being you 💖</p>
+
+    <!-- 🎵 MUSIC WAVE INSIDE FINAL CARD -->
+    <div class="music-wave" id="wave">
+      <span style="--i:1"></span>
+      <span style="--i:2"></span>
+      <span style="--i:3"></span>
+      <span style="--i:4"></span>
+      <span style="--i:5"></span>
+    </div>
   </div>
-  <div class="id">@swan____2010</div>
 </div>
 
+<div class="id">@swan____2010</div>
+
 <script>
-const music=document.getElementById("music");
+const music = document.getElementById("music");
+const wave  = document.getElementById("wave");
 
 function start(){
   music.play().catch(()=>{});
+  wave.style.display="flex";
   go(1,2);
 }
 function go(f,t){
   document.getElementById("p"+f).classList.replace("center","left");
   document.getElementById("p"+t).classList.replace("right","center");
 }
-function toggle(b){b.classList.toggle("show");}
+function toggle(b){ b.classList.toggle("show"); }
 function finalReveal(b){
   b.classList.add("show");
   setTimeout(()=>go(3,4),1000);
