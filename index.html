@@ -1,15 +1,21 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Merry Christmas 🎄</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;height:100%;overflow:hidden;}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
 
 body{
   background:linear-gradient(180deg,#0b3d2e,#0f5132);
@@ -34,20 +40,22 @@ body{
   position:absolute;
   left:50%;
   transform:translateX(-50%);
-  width:0;height:0;
+  width:0;
+  height:0;
   border-left:130px solid transparent;
   border-right:130px solid transparent;
   border-bottom:90px solid #1f7a4d;
 }
 .tree .l1{top:0;}
-.tree .l2{top:70px;transform:translateX(-50%) scale(.9);}
-.tree .l3{top:140px;transform:translateX(-50%) scale(.8);}
+.tree .l2{top:60px;transform:translateX(-50%) scale(.9);}
+.tree .l3{top:120px;transform:translateX(-50%) scale(.8);}
 .tree .trunk{
   position:absolute;
   bottom:-60px;
   left:50%;
   transform:translateX(-50%);
-  width:40px;height:70px;
+  width:40px;
+  height:70px;
   background:#5a3a22;
   border-radius:6px;
 }
@@ -119,28 +127,12 @@ body{
   animation:fadeIn 1.5s ease;
 }
 
-/* ❤️ REVEAL GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+/* FINAL */
+.final{
+  background:linear-gradient(180deg,#7d0a0a,#b11226);
 }
-.box{
-  height:80px;
-  background:#fdecea;
-  border-radius:14px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  font-weight:600;
-  color:transparent;
-}
-.box::after{content:"Tap";color:#c0392b;}
-.box.show{color:#c0392b;}
-.box.show::after{display:none;}
 
-/* 🎶 MUSIC WAVE */
+/* MUSIC WAVE */
 .music-wave{
   margin-top:20px;
   display:flex;
@@ -148,7 +140,8 @@ body{
   gap:6px;
 }
 .music-wave span{
-  width:5px;height:18px;
+  width:5px;
+  height:18px;
   background:#b11226;
   border-radius:4px;
   animation:wave 1.2s infinite;
@@ -156,36 +149,21 @@ body{
 .music-wave span:nth-child(n){
   animation-delay:calc(var(--i)*.1s);
 }
-
-/* FINAL PAGE */
-.final{
-  background:linear-gradient(180deg,#7d0a0a,#b11226);
-}
-.final h1{
-  font-family:'Great Vibes', cursive;
-  font-size:48px;
-  color:#b11226;
-}
-.id{
-  position:fixed;
-  bottom:15px;
-  width:100%;
-  text-align:center;
-  font-size:12px;
-  opacity:.6;
+@keyframes wave{
+  0%,100%{height:18px;opacity:.4;}
+  50%{height:40px;opacity:1;}
 }
 
 /* Animations */
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes wave{0%,100%{height:18px;opacity:.4;}50%{height:40px;opacity:1;}}
 </style>
 </head>
 
 <body>
 
-<!-- 🎄 TREE -->
+<!-- 🎄 TREE BACKGROUND -->
 <div class="tree">
   <div class="layer l1"></div>
   <div class="layer l2"></div>
@@ -215,55 +193,27 @@ body{
   </div>
 </div>
 
-<!-- PAGE 3 (REVEAL) -->
-<div class="page right" id="p3">
-  <div class="card">
-    <h2>Just for you ❤️</h2>
-    <div class="grid">
-      <div class="box" onclick="toggle(this)">You</div>
-      <div class="box" onclick="toggle(this)">are</div>
-      <div class="box" onclick="toggle(this)">my</div>
-      <div class="box" onclick="toggle(this)">prettiest</div>
-      <div class="box" onclick="toggle(this)">Gift</div>
-      <div class="box" onclick="finalReveal(this)">❤️</div>
-    </div>
-  </div>
-</div>
-
-<!-- PAGE 4 FINAL -->
+<!-- PAGE 4 (FINAL DEMO) -->
 <div class="page right final" id="p4">
   <div class="card">
-    <h1>Merry Christmas</h1>
+    <h1 style="font-family:'Great Vibes';font-size:46px;color:#b11226;">Merry Christmas</h1>
     <p>This Christmas, I just want you to know how special you are to me.</p>
-    <p>Thank you for being you 💖</p>
 
     <div class="music-wave">
-      <span style="--i:1"></span><span style="--i:2"></span>
-      <span style="--i:3"></span><span style="--i:4"></span>
-      <span style="--i:5"></span>
+      <span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span>
+      <span style="--i:4"></span><span style="--i:5"></span>
     </div>
   </div>
 </div>
-
-<div class="id">@swan____2010</div>
 
 <script>
 const music=document.getElementById("music");
-
 function start(){
   music.play().catch(()=>{});
-  go("p1","p3");
-}
-function go(f,t){
-  document.getElementById(f).classList.replace("center","left");
-  document.getElementById(t).classList.replace("right","center");
-}
-function toggle(b){b.classList.toggle("show");}
-function finalReveal(b){
-  b.classList.add("show");
-  setTimeout(()=>go("p3","p4"),1000);
+  document.getElementById("p1").classList.replace("center","left");
+  document.getElementById("p4").classList.replace("right","center");
 }
 </script>
 
 </body>
-  </html>
+</html>
